@@ -29,7 +29,7 @@ make install || exit 1
 
 strip $HOME/sw/bin/urxvt*
 sudo chgrp root $HOME/sw/bin/urxvt*
-sudo chmod g+s $HOME/sw/bin/urxvt*
+sudo chmod g+s $HOME/sw/bin/urxvt* # needs setgid for putting entires in utmp/wtmp
 
 finish
 
