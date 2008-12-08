@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# global compiler flags, desired for every package
+export CFLAGS="-mtune=prescott -fomit-frame-pointer -Os"
+export CXXFLAGS="$CFLAGS"
+
+__tmpdir__=`mktemp -t -d buildscript.XXXXXXXXX`
+cd "$__tmpdir__"
+
+finish()
+{
+    cd / # doesn't matter where, just get out of the tmp dir
+    rm -rf "$__tmpdir__"
+}
+

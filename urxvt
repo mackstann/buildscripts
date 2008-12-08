@@ -1,0 +1,35 @@
+#!/bin/zsh -x
+
+. `dirname $0`/common.include
+
+sudo apt-get build-dep rxvt-unicode
+
+cvs -z3 -d :pserver:anonymous@cvs.schmorp.de/schmorpforge co rxvt-unicode
+cd rxvt-unicode
+
+export CXXFLAGS="$CXXFLAGS -fno-rtti -fvisibility-inlines-hidden -fno-threadsafe-statics -fno-enforce-eh-specs -w"
+
+./configure \
+    --disable-xft \
+    --disable-font-styles \
+    --disable-xim \
+    --disable-afterimage \
+    --disable-transparency \
+    --disable-fading \
+    --disable-rxvt-scroll \
+    --disable-next-scroll \
+    --disable-xterm-scroll \
+    --disable-text-blink \
+    --disable-perl \
+    --disable-iso14755 \
+    --prefix=$HOME/sw || exit 1
+
+make -j2 || exit 1
+make install || exit 1
+
+strip $HOME/sw/bin/urxvt*
+sudo chgrp root $HOME/sw/bin/urxvt*
+sudo chmod g+s $HOME/sw/bin/urxvt*
+
+finish
+
