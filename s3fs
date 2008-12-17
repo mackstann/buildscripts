@@ -1,0 +1,15 @@
+#!/bin/zsh -x
+
+. `dirname $0`/common.include
+
+# http://blog.eberly.org/2008/10/27/how-i-automated-my-backups-to-amazon-s3-using-rsync/
+
+sudo apt-get install build-essential libcurl4-openssl-dev libxml2-dev libfuse-dev
+
+wget http://s3fs.googlecode.com/files/s3fs-r177-source.tar.gz
+tar -xzf s3fs*
+cd s3fs
+make && cp -f s3fs ~/sw/bin/
+
+finish
+
