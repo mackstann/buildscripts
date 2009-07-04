@@ -7,12 +7,16 @@ sudo apt-get build-dep rxvt-unicode
 cvs -z3 -d :pserver:anonymous@cvs.schmorp.de/schmorpforge co rxvt-unicode
 cd rxvt-unicode
 
+patch -p1 < doc/urxvt-8.2-256color.patch
+
 export CXXFLAGS="$CXXFLAGS -fno-rtti -fvisibility-inlines-hidden -fno-threadsafe-statics -fno-enforce-eh-specs -w"
 
+    #--disable-xft \
+    #--disable-font-styles \
+    #--disable-xim \
+    #--disable-perl \
 ./configure \
-    --disable-xft \
-    --disable-font-styles \
-    --disable-xim \
+    --disable-iso14755 \
     --disable-afterimage \
     --disable-transparency \
     --disable-fading \
@@ -20,8 +24,6 @@ export CXXFLAGS="$CXXFLAGS -fno-rtti -fvisibility-inlines-hidden -fno-threadsafe
     --disable-next-scroll \
     --disable-xterm-scroll \
     --disable-text-blink \
-    --disable-perl \
-    --disable-iso14755 \
     --prefix=$HOME/sw || exit 1
 
 make -j2 || exit 1
